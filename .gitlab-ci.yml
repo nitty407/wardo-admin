@@ -1,0 +1,37 @@
+variables:
+  DOCKER_DRIVER: overlay
+
+stages:
+  - vars
+  - package
+
+variables-qa:
+  stage: vars
+  script:
+    - echo 'export ACTIVE_PROFILE="qa"' >> variables
+  artifacts:
+    paths:
+      - variables
+  only:
+    - /^sprint/
+
+variables-prod:
+  stage: vars
+  script:
+    - echo 'export ACTIVE_PROFILE="prod"' >> variables
+  artifacts:
+    paths:
+      - variables
+  only:
+    - /^master/
+
+docker-build:
+  stage: package
+  image: docker:latest
+  services:
+    - docker:dind
+  script:
+    - source variables
+    - docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD" $CI_REGISTRY
+    - docker build --pull -t "$CI_REGISTRY_IMAGE":$CI_COMMIT_SHORT_SHA$ACTIVE_PROFILE --build-arg profile=$ACTIVE_PROFILE .
+    - docker push "$CI_REGISTRY_IMAGE":$CI_COMMIT_SHORT_SHA$ACTIVE_PROFILE

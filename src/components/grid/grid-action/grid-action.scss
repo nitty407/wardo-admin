@@ -1,0 +1,53 @@
+// Grid Actions Styles :
+.gridActionContainer {
+  max-width: 850px;
+
+  & > div {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    align-items: flex-end;
+  }
+
+  & > div > * {
+    margin: 0 10px 10px;
+  }
+}
+
+.searchForm {
+  max-width: 260px;
+}
+
+.searchBtn {
+  padding: 10px;
+}
+
+.drpdwnFilterControl {
+  min-width: 200px;
+}
+
+.dateRangePicker {
+  position: relative;
+}
+
+.dateRangeLabel {
+  position: absolute;
+  bottom: 105%;
+}
+
+.dateRngPckrwrapper {
+  padding: 6px 16px;
+}
+
+.progressBtnWrapper {
+  position: "relative";
+}
+
+.buttonProgress {
+  color: #fff;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin-top: -12;
+  margin-left: -12;
+}
